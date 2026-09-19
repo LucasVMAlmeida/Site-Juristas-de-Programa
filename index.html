@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Juristas de Programa — projeto de extensão unindo Direito e Tecnologia na UESC." />
+  <link rel="canonical" href="https://juristasdeprograma.uesc.br/" />
+  <link rel="icon" type="image/png" href="imagens/AJURISTAS.png" />
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Juristas de Programa — Unindo Direito e Tecnologia" />
+  <meta property="og:description" content="Projeto de extensão da UESC que integra tecnologia, ambiente jurídico e sociedade. Conheça o Chatbot Jurídico e as demais iniciativas do grupo." />
+  <meta property="og:image" content="imagens/AJURISTAS.png" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Juristas de Programa — Unindo Direito e Tecnologia" />
+  <meta name="twitter:description" content="Projeto de extensão da UESC que integra tecnologia, ambiente jurídico e sociedade." />
+  <meta name="twitter:image" content="imagens/AJURISTAS.png" />
+
+  <title>Juristas de Programa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+  
+    :root {
+      /* Cores */
+      --color-primary: #1a6fa8;
+      --color-primary-dark: #0e4d7a;
+      --color-primary-darker: #0a3d5f;
+      --color-accent-green: #1a8a6a;
+      --color-text-body: #3a4a5a;
+      --color-text-muted: #4a5568;
+      --color-text-heading: #1a2a3a;
+      --color-white: #fff;
+      --color-warning-bg: #fdf2d8;
+      --color-warning-text: #8a6d1a;
+      --color-warning-border: #f0dba0;
+
+      /* Espaçamentos (escala XS a XXL) */
+      --space-xs: 8px;
+      --space-s: 16px;
+      --space-m: 24px;
+      --space-l: 32px;
+      --space-xl: 48px;
+      --space-xxl: 64px;
+
+      /* Bordas */
+      --radius-s: 10px;
+      --radius-m: 18px;
+      --radius-pill: 40px;
+
+      /* Fontes */
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Source Sans 3', sans-serif;
+    }
+
+    
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-primary-dark) 40%, var(--color-primary-darker) 100%);
+      min-height: 100vh;
+      color: #fff;
+    }
+
+    /* Utilitário para leitores de tela (acessibilidade) */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    /* Skip link para navegação por teclado */
+    .skip-link {
+      position: absolute;
+      top: -50px;
+      left: 8px;
+      background: #fff;
+      color: var(--color-primary-darker);
+      padding: 10px 16px;
+      border-radius: 8px;
+      z-index: 1000;
+      transition: top 0.2s;
+      font-weight: 600;
+    }
+    .skip-link:focus {
+      top: 8px;
+    }
+
+    /*
+       NAVEGAÇÃO
+    */
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(10, 40, 65, 0.45);
+      backdrop-filter: blur(6px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo-wrapper {
+      position: relative;
+    }
+
+    .nav-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: transform 0.15s;
+    }
+
+    .nav-logo:hover,
+    .nav-logo:focus-visible {
+      transform: scale(1.06);
+    }
+
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Selo indicando que a logo é clicável e abre um menu */
+    .nav-logo-indicador {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--color-accent-green);
+      border: 2px solid var(--color-primary-darker);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.15s;
+    }
+
+    .nav-logo-wrapper:hover .nav-logo-indicador,
+    #botao-menu-logo:focus-visible ~ .nav-logo-indicador {
+      transform: scale(1.15);
+    }
+
+    .nav-logo-indicador svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    /* Dropdown do menu da logo */
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      min-width: 180px;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-6px);
+      transition: opacity 0.15s, transform 0.15s, visibility 0.15s;
+      z-index: 200;
+    }
+
+    .nav-dropdown.aberto {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .nav-dropdown a {
+      display: block;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary-dark);
+      text-decoration: none;
+    }
+
+    .nav-dropdown a:hover,
+    .nav-dropdown a:focus-visible {
+      background: #e3f0fc;
+    }
+
+    .nav-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav-title {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .nav-subtitle {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* 
+       CONTAINER CENTRAL
+     */
+    .container {
+      width: 100%;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* 
+       HERO
+     */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 48px 16px 32px;
+    }
+
+    .hero-image-wrapper {
+      width: 240px;
+      height: 240px;
+      border-radius: 18px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 28px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+
+    .hero-image-wrapper:hover {
+      transform: scale(1.05);
+    }
+
+    .hero-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 4px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 6vw, 42px); /* responsivo automaticamente */
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    .hero-tagline {
+      font-size: clamp(15px, 3vw, 18px);
+      color: rgba(255, 255, 255, 0.75);
+      margin-top: 8px;
+    }
+
+    /* 
+       SEÇÕES E CARDS
+     */
+    main {
+      padding: 8px 0 16px;
+    }
+
+    .section {
+      padding: 0 16px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 32px 28px;
+      color: var(--color-text-heading);
+      margin-bottom: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: 16px;
+    }
+
+    .card-body {
+      font-size: 16px;
+      color: var(--color-text-body);
+      line-height: 1.75;
+    }
+
+    .card-body + .card-body {
+      margin-top: 12px;
+    }
+
+    /* 
+       GRID "O QUE FAZEMOS"
+   */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr; /* 1 coluna no mobile */
+      gap: 16px;
+    }
+
+    @media (min-width: 520px) {
+      .features-grid {
+        grid-template-columns: 1fr 1fr; /* 2 colunas a partir de 520px */
+      }
+    }
+
+    .feature-item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 8px;
+      margin: -8px;
+      border-radius: 12px;
+      transition: transform 0.18s, background 0.18s;
+    }
+
+    .feature-item:hover,
+    .feature-item:focus-within {
+      transform: translateY(-3px);
+      background: rgba(26, 111, 168, 0.05);
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+      transition: transform 0.18s;
+    }
+
+    .feature-item:hover .feature-icon,
+    .feature-item:focus-within .feature-icon {
+      transform: scale(1.12);
+    }
+
+    .feature-icon.green  { background: #e8f5e9; }
+    .feature-icon.teal   { background: #e0f7f4; }
+    .feature-icon.blue   { background: #e3f0fc; }
+    .feature-icon.purple { background: #ede7f6; }
+
+    .feature-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .feature-text {
+      font-size: 14px;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* 
+       CARD CHATBOT (centralizado)
+     */
+    .card-center {
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--color-accent-green);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 16px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    /* 
+       BOTÕES
+   */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px auto 0;
+      padding: 13px 28px;
+      border-radius: 40px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s;
+      max-width: 320px;
+      width: 100%;
+    }
+
+    .btn:hover   { opacity: 0.88; transform: translateY(-2px) scale(1.02); }
+    .btn:active  { transform: scale(0.97); }
+
+    .btn-telegram  { background: #1d8cb5; color: #fff; }
+    .btn-instagram { background: linear-gradient(135deg, #e1306c, #833ab4); color: #fff; }
+    .btn-acao-extensionista { background: var(--color-accent-green); color: #fff; }
+
+    .btn-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 8px;
+    }
+
+    /* Aviso de recurso em construção */
+    .aviso-construcao {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 20px auto 0;
+      padding: 13px 28px;
+      border-radius: 40px;
+      font-size: 15px;
+      font-weight: 600;
+      max-width: 320px;
+      width: 100%;
+      background: var(--color-warning-bg);
+      color: var(--color-warning-text);
+      border: 1px solid var(--color-warning-border);
+    }
+
+    /* 
+       RODAPÉ
+     */
+    footer {
+      background: #07304d;
+      padding: 32px 16px 24px;
+      margin-top: 8px;
+    }
+
+    .footer-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .footer-logo-link {
+      border-radius: var(--radius-s);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: transform 0.15s, opacity 0.15s;
+      height: 52px;
+      padding: 6px 4px;
+    }
+
+    .footer-logo-link:hover,
+    .footer-logo-link:focus-visible {
+      transform: translateY(-2px);
+      opacity: 0.85;
+    }
+
+   
+    .footer-logo-link--claro {
+      background: var(--color-white);
+      padding: 6px 12px;
+    }
+
+    .footer-logo-link img {
+      height: 100%;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+    }
+
+    /* Bloco UESC: brasão + endereço*/
+    .footer-uesc-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--color-white);
+      padding: 4px;
+      border-radius: var(--radius-s);
+      transition: transform 0.15s, opacity 0.15s;
+    }
+
+    .footer-uesc-block:hover,
+    .footer-uesc-block:focus-visible {
+      transform: translateY(-2px);
+      opacity: 0.85;
+    }
+
+    .footer-uesc-brasao {
+      height: 56px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .footer-uesc-texto {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      font-size: 11px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .footer-uesc-texto strong {
+      font-size: 12px;
+      color: var(--color-white);
+      margin-bottom: 2px;
+    }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      line-height: 1.8;
+    }
+
+    .footer-copy a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+    }
+
+    .footer-copy a:hover {
+      text-decoration: underline;
+    }
+
+    /* 
+       RESPONSIVIDADE EXTRA
+   */
+    @media (min-width: 640px) {
+      .nav { padding: 16px 40px; }
+      .hero { padding: 56px 24px 36px; }
+      .hero-image-wrapper { width: 280px; height: 280px; }
+      .section { padding: 0 24px; }
+      .card { padding: 36px 36px; }
+    }
+
+    @media (min-width: 780px) {
+      .section { padding: 0; }
+    }
+
+    /* Reduz animações para quem prefere (acessibilidade) */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Link de pular navegação (acessibilidade via teclado) -->
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <!-- NAVEGAÇÃO -->
+  <header>
+    <nav class="nav" aria-label="Navegação principal">
+      <div class="nav-logo-wrapper">
+        <button
+          type="button"
+          class="nav-logo"
+          id="botao-menu-logo"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="menu-logo"
+          aria-label="Abrir menu do Juristas de Programa"
+        >
+          <img src="imagens/AJURISTAS.png" alt="" />
+        </button>
+        <span class="nav-logo-indicador" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </span>
+        <div class="nav-dropdown" id="menu-logo" role="menu">
+          <a href="coordenadores.html" role="menuitem">Coordenadores</a>
+        </div>
+      </div>
+      <div class="nav-info">
+        <span class="nav-title">Juristas de Programa</span>
+        <span class="nav-subtitle">Unindo Direito e Tecnologia</span>
+      </div>
+    </nav>
+  </header>
+
+  <script>
+    // Abre/fecha o menu dropdown ao passar o mouse ou clicar na logo
+    (function () {
+      const wrapper = document.querySelector('.nav-logo-wrapper');
+      const botao = document.getElementById('botao-menu-logo');
+      const menu = document.getElementById('menu-logo');
+      let temporizadorFechar = null;
+
+      function abrirMenu() {
+        clearTimeout(temporizadorFechar);
+        menu.classList.add('aberto');
+        botao.setAttribute('aria-expanded', 'true');
+      }
+
+      function fecharMenu() {
+        menu.classList.remove('aberto');
+        botao.setAttribute('aria-expanded', 'false');
+      }
+
+      function fecharComAtraso() {
+        temporizadorFechar = setTimeout(fecharMenu, 200);
+      }
+
+      function alternarMenu(evento) {
+        evento.stopPropagation();
+        const abrindo = !menu.classList.contains('aberto');
+        menu.classList.toggle('aberto', abrindo);
+        botao.setAttribute('aria-expanded', String(abrindo));
+      }
+
+      // Passar o mouse por cima abre o menu (com pequeno atraso ao sair, pra não fechar sem querer)
+      wrapper.addEventListener('mouseenter', abrirMenu);
+      wrapper.addEventListener('mouseleave', fecharComAtraso);
+
+      // Clique continua funcionando (essencial para toque em celular)
+      botao.addEventListener('click', alternarMenu);
+
+      // Fecha ao clicar fora
+      document.addEventListener('click', function (evento) {
+        if (!menu.contains(evento.target) && evento.target !== botao) {
+          fecharMenu();
+        }
+      });
+
+      // Fecha com a tecla Esc (acessibilidade via teclado)
+      document.addEventListener('keydown', function (evento) {
+        if (evento.key === 'Escape') {
+          fecharMenu();
+          botao.focus();
+        }
+      });
+
+      // Abre ao focar via teclado (Tab), fecha ao sair do foco
+      wrapper.addEventListener('focusin', abrirMenu);
+      wrapper.addEventListener('focusout', function (evento) {
+        if (!wrapper.contains(evento.relatedTarget)) {
+          fecharMenu();
+        }
+      });
+    })();
+  </script>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-image-wrapper">
+      <img src="imagens/AJURISTAS.png" alt="Logo do Juristas de Programa: duas cabeças estilizadas em azul, uma representando o Direito e outra a Tecnologia, com folhas no topo simbolizando crescimento" decoding="async" />
+    </div>
+    <h1>Juristas de Programa</h1>
+    <p class="hero-tagline">Unindo Direito e Tecnologia</p>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main id="conteudo-principal">
+    <div class="container">
+      <div class="section">
+
+        <!-- SOBRE -->
+        <section class="card" aria-labelledby="sobre-titulo">
+          <h2 class="card-title" id="sobre-titulo">Sobre o Grupo</h2>
+          <p class="card-body">
+            É um projeto de extensão voltado à integração entre tecnologia, ambiente jurídico e sociedade. A iniciativa parte da ideia de que a modernidade e os avanços tecnológicos impactam diretamente o funcionamento do ordenamento jurídico, exigindo novas formas de reflexão e atuação.
+          </p>
+          <p class="card-body">
+            Além disso, o projeto segue uma linha inovadora de extensão, desenvolvendo também estudos bibliográficos, pesquisas e iniciativas tecnológicas aplicadas ao Direito. Entre essas iniciativas, destaca-se a criação de aplicações próprias pelo time de desenvolvimento.
+          </p>
+        </section>
+
+        <!-- O QUE FAZEMOS -->
+        <section class="card" aria-labelledby="fazemos-titulo">
+          <h2 class="card-title" id="fazemos-titulo">O Que Fazemos</h2>
+          <div class="features-grid">
+
+            <div class="feature-item">
+              <div class="feature-icon green" aria-hidden="true">💻</div>
+              <div>
+                <p class="feature-title">Desenvolvimento</p>
+                <p class="feature-text">Criamos soluções voltadas ao combate ao discurso de ódio e desinformação, desenvolvendo ferramentas que promovam acesso à justiça.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon teal" aria-hidden="true">📚</div>
+              <div>
+                <p class="feature-title">Extensão Pedagógica</p>
+                <p class="feature-text">Difundimos conhecimento sobre tecnologias de forma acessível, revelando o funcionamento de IAs, algoritmos e redes sociais.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon blue" aria-hidden="true">🔍</div>
+              <div>
+                <p class="feature-title">Pesquisa</p>
+                <p class="feature-text">Desenvolvemos estudos bibliográficos e pesquisas sobre tecnologia aplicada ao Direito e suas relações de poder.</p>
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon purple" aria-hidden="true">🛡</div>
+              <div>
+                <p class="feature-title">Educação Digital</p>
+                <p class="feature-text">Promovemos educação sobre direitos digitais e conscientização sobre os desafios da convivência democrática no ambiente digital.</p>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- CHATBOT -->
+        <section class="card card-center" aria-labelledby="chatbot-titulo">
+          <span class="badge">Projeto Principal</span>
+          <h2 class="card-title" id="chatbot-titulo">Chatbot Jurídico</h2>
+          <p class="card-body">
+            Nosso chatbot jurídico no Telegram oferece informações rápidas, acessíveis e gratuitas, com enfoque em jurisprudência e no noticiário relacionado ao Supremo Tribunal Federal. A proposta é facilitar o acesso à informação jurídica qualificada, aproximando a sociedade das decisões da Corte e promovendo a democratização do acesso à justiça por meio da tecnologia.
+          </p>
+          <div class="aviso-construcao" role="status">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8a6d1a" stroke-width="2" aria-hidden="true" focusable="false">
+              <path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Chatbot em construção
+          </div>
+          <p class="btn-note">Em breve disponível 24 horas por dia, 7 dias por semana</p>
+        </section>
+
+        <!-- PEDIDO DE AÇÃO EXTENSIONISTA -->
+        <section class="card card-center" aria-labelledby="acao-extensionista-titulo">
+          <h2 class="card-title" id="acao-extensionista-titulo">Solicitar uma Ação Extensionista</h2>
+          <p class="card-body">
+            Sua turma, escola ou instituição quer receber uma palestra, oficina ou atividade do Juristas de Programa? Preencha o formulário e conte pra gente o que você precisa.
+          </p>
+          <a
+            class="btn btn-acao-extensionista"
+            href="https://forms.gle/cfXwxw2MxTrwd3hG9"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Preencher formulário de pedido de ação extensionista (abre em nova aba)"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" aria-hidden="true" focusable="false">
+              <path d="M12 20h9" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Preencher formulário
+          </a>
+        </section>
+
+        <!-- INSTAGRAM -->
+        <section class="card card-center" aria-labelledby="instagram-titulo">
+          <h2 class="card-title" id="instagram-titulo">Siga-nos no Instagram</h2>
+          <p class="card-body">
+            Acompanhe conteúdos sobre educação digital, tecnologia e direitos no ambiente digital.
+          </p>
+          <a
+            class="btn btn-instagram"
+            href="https://instagram.com/juristasdeprograma"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Seguir @juristasdeprograma no Instagram (abre em nova aba)"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white" aria-hidden="true" focusable="false">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+            </svg>
+            @juristasdeprograma
+          </a>
+        </section>
+
+      </div><!-- /section -->
+    </div><!-- /container -->
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <div class="container">
+      <div class="footer-logos">
+
+        <a
+          class="footer-uesc-block"
+          href="https://www.uesc.br"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visitar o site da UESC — Campus Soane Nazaré de Andrade (abre em nova aba)"
+        >
+          <img class="footer-uesc-brasao" src="imagens/uesc-brasao.png" alt="" loading="lazy" decoding="async" />
+          <span class="footer-uesc-texto">
+            <strong>Campus Soane Nazaré de Andrade</strong>
+            Rodovia Jorge Amado, Km 16, Bairro Salobrinho<br>
+            CEP 45662-900. Ilhéus-Bahia
+          </span>
+        </a>
+
+        <a
+          class="footer-logo-link footer-logo-link--claro"
+          href="https://www.ba.gov.br"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visitar o site do Governo do Estado da Bahia (abre em nova aba)"
+        >
+          <img src="imagens/governo-bahia.png" alt="Governo do Estado da Bahia" loading="lazy" decoding="async" />
+        </a>
+
+      </div>
+
+      <p class="footer-copy">
+        © 2026 Juristas de Programa · Todos os direitos reservados<br>
+        <a href="lv88722@gmail.com">Desenvolvido por Lucas Vieira</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
